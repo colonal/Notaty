@@ -2,11 +2,11 @@
   "name": "notaty",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --env-file .env server",
-    "dev": "nodemon --env-file .dev.env server"
+    "start": "node --env-file .env src/app.js",
+    "dev": "nodemon --env-file .env.development src/app.js"
   },
   "author": "",
   "license": "ISC",

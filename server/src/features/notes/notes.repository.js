@@ -1,25 +1,26 @@
 import Note from './notes.model.js';
 
 class NoteRepository {
-    async add(note) {
+    async add(userId, note) {
         const newNote = new Note({
             title: note.title,
             content: note.content,
+            userId: userId,
             createdAt: new Date(),
             updatedAt: new Date()
         });
         return newNote.save();
     }
 
-    async getNotes() {
-        return Note.find({});
+    async getNotes(userId) {
+        return Note.find({ userId: userId });
     }
 
-    async getNoteById(id) {
-        return Note.findById(id);
+    async getNoteById(userId, id) {
+        return Note.findOne({ _id: id, userId: userId });
     }
 
-    async updateNote(note) {
+    async updateNote(userId, note) {
         const updateFields = {};
         if (note.title) {
             updateFields.title = note.title;
@@ -29,15 +30,15 @@ class NoteRepository {
         }
         updateFields.updatedAt = new Date();
 
-        return Note.findByIdAndUpdate(note["_id"], updateFields, { new: true });
+        return Note.findOneAndUpdate({ _id: note["_id"], userId: userId }, updateFields, { new: true });
     }
 
-    async deleteNote(id) {
-        return Note.findByIdAndDelete(id);
+    async deleteNote(userId, id) {
+        return Note.findOneAndDelete({ _id: id, userId: userId });
     }
 
-    async getNotesByTitle(title) {
-        const query = { title: { $regex: new RegExp(title, 'i') } }; // Case-insensitive search
+    async getNotesByTitle(userId, title) {
+        const query = { title: { $regex: new RegExp(title, 'i') }, userId: userId }; // Case-insensitive search
         return Note.find(query);
     }
 }

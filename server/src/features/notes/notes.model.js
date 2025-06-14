@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const noteSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        ref: 'User',
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -21,6 +26,21 @@ const noteSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         required: true,
+    },
+
+}, {
+    versionKey: false,
+    toJSON: {
+        transform: (doc, ret) => {
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    },
+    toObject: {
+        transform: (doc, ret) => {
+            ret.id = ret._id;
+            delete ret._id;
+        }
     }
 })
 

@@ -1,27 +1,53 @@
+import ClientError from '../../utils/errors/client_error.js';
 import noteRepository from './notes.repository.js';
 
 class NoteService {
-    async createNote(note) {
-        return noteRepository.add(note);
-    }
-
-    async getAllNotes(query) {
-        if (query.title) {
-            return noteRepository.getNotesByTitle(query.title);
+    async createNote(userId, note) {
+        const newNote = await noteRepository.add(userId, note);
+        if (!newNote) {
+            throw new ClientError('Failed to create note', 500);
         }
-        return noteRepository.getNotes();
+        return newNote;
     }
 
-    async getNoteById(id) {
-        return noteRepository.getNoteById(id);
+    async getAllNotes(userId, query) {
+        if (query.title) {
+            return noteRepository.getNotesByTitle(userId, query.title);
+        }
+        return noteRepository.getNotes(userId);
     }
 
-    async updateNote(note) {
-        return noteRepository.updateNote(note);
+    async getNoteById(userId, id) {
+        const note = await noteRepository.getNoteById(userId, id);
+        if (!note) {
+            throw new ClientError('Note not found', 404);
+        }
+        if (userId !== note.userId) {
+            throw new ClientError('You are not authorized to access this note', 403);
+        }
+        return noteRepository.getNoteById(userId, id);
     }
 
-    async deleteNote(id) {
-        return noteRepository.deleteNote(id);
+    async updateNote(userId, note) {
+        const updatedNote = await noteRepository.updateNote(userId, note);
+        if (!updatedNote) {
+            throw new ClientError('Note not found', 404);
+        }
+        if (userId !== updatedNote.userId) {
+            throw new ClientError('You are not authorized to update this note', 403);
+        }
+        return updatedNote;
+    }
+
+    async deleteNote(userId, id) {
+        const deletedNote = await noteRepository.deleteNote(userId, id);
+        if (!deletedNote) {
+            throw new ClientError('Note not found', 404);
+        }
+        if (userId !== deletedNote.userId) {
+            throw new ClientError('You are not authorized to delete this note', 403);
+        }
+        return deletedNote;
     }
 }
 

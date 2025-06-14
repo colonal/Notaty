@@ -3,7 +3,7 @@ import noteService from './notes.service.js';
 class NoteController {
     async createNote(req, res) {
         try {
-            const note = await noteService.createNote(req.body);
+            const note = await noteService.createNote(req.user.id, req.body);
             res.status(201).json({
                 message: 'Note created successfully',
                 success: true,
@@ -20,7 +20,7 @@ class NoteController {
 
     async getAllNotes(req, res) {
         try {
-            const notes = await noteService.getAllNotes(req.query);
+            const notes = await noteService.getAllNotes(req.user.id, req.query);
             res.status(200).json({
                 message: 'Notes retrieved successfully',
                 success: true,
@@ -38,20 +38,12 @@ class NoteController {
 
     async getNoteById(req, res) {
         try {
-            const note = await noteService.getNoteById(req.params.id);
-            if (note) {
-                res.status(200).json({
-                    message: 'Note retrieved successfully',
-                    success: true,
-                    note: note
-                });
-            } else {
-                res.status(404).json({
-                    message: 'Note not found',
-                    success: false,
-                    note: null
-                });
-            }
+            const note = await noteService.getNoteById(req.user.id, req.params.id);
+            res.status(200).json({
+                message: 'Note retrieved successfully',
+                success: true,
+                note: note
+            });
         } catch (error) {
             console.error('Error retrieving note by ID:', error);
             res.status(500).json({
@@ -64,20 +56,12 @@ class NoteController {
 
     async updateNote(req, res) {
         try {
-            const note = await noteService.updateNote(req.body);
-            if (note) {
-                res.status(200).json({
-                    message: 'Note updated successfully',
-                    success: true,
-                    note: note
-                });
-            } else {
-                res.status(404).json({
-                    message: 'Note not found',
-                    success: false,
-                    note: null
-                });
-            }
+            const note = await noteService.updateNote(req.user.id, req.body);
+            res.status(200).json({
+                message: 'Note updated successfully',
+                success: true,
+                note: note
+            });
         } catch (error) {
             console.error('Error updating note:', error);
             res.status(500).json({
@@ -90,18 +74,11 @@ class NoteController {
 
     async deleteNote(req, res) {
         try {
-            const result = await noteService.deleteNote(req.params.id);
-            if (result) {
-                res.status(200).json({
-                    message: 'Note deleted successfully',
-                    success: true
-                });
-            } else {
-                res.status(404).json({
-                    message: 'Note not found',
-                    success: false
-                });
-            }
+            await noteService.deleteNote(req.user.id, req.params.id);
+            res.status(200).json({
+                message: 'Note deleted successfully',
+                success: true
+            });
         } catch (error) {
             console.error('Error deleting note:', error);
             res.status(500).json({

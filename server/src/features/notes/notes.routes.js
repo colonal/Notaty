@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
+import noteController from './notes.controller.js';
 const router = express.Router();
-const noteController = require('./notes.controller');
 
 // Create POST API to be able to create a new note
 router.post('/', noteController.createNote);
@@ -17,4 +17,4 @@ router.put('/', noteController.updateNote);
 // Create DELETE API to be able to delete a note
 router.delete('/:id', noteController.deleteNote);
 
-module.exports = router;
+export default router;

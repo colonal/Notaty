@@ -1,8 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const connectDB = require('./config/database');
-const noteRoutes = require('./features/notes/notes.routes');
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import connectDB from './config/database.js';
+import { getEnv } from './config/env.js';
+import noteRoutes from './features/notes/notes.routes.js';
+import userRoutes from './features/user/user.routes.js';
 
 const app = express();
 
@@ -20,11 +22,12 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/notes', noteRoutes);
+app.use('/api/users', userRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = getEnv('PORT') || 3000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} ...`);
 });
 
-module.exports = app;
+export default app;

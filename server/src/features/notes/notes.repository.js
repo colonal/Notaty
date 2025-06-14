@@ -1,4 +1,4 @@
-const Note = require('./notes.model');
+import Note from './notes.model.js';
 
 class NoteRepository {
     async add(note) {
@@ -42,4 +42,4 @@ class NoteRepository {
     }
 }
 
-module.exports = new NoteRepository();
+export default new NoteRepository();

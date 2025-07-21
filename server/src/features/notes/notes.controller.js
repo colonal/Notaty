@@ -1,90 +1,58 @@
+import { BaseController } from '../../core/base.controller.js';
 import noteService from './notes.service.js';
 
-class NoteController {
+class NoteController extends BaseController {
+    constructor() {
+        super();
+        this.createNote = this.createNote.bind(this);
+        this.getAllNotes = this.getAllNotes.bind(this);
+        this.getNoteById = this.getNoteById.bind(this);
+        this.updateNote = this.updateNote.bind(this);
+        this.deleteNote = this.deleteNote.bind(this);
+    }
+
     async createNote(req, res) {
         try {
             const note = await noteService.createNote(req.user.id, req.body);
-            res.status(201).json({
-                message: 'Note created successfully',
-                success: true,
-                note: note
-            });
+            this.createdResponse(res, 'Note created successfully', note);
         } catch (error) {
-            console.error('Error creating note:', error);
-            res.status(500).json({
-                message: 'Error creating note',
-                success: false
-            });
+            this.errorResponse(res, error);
         }
     }
 
     async getAllNotes(req, res) {
         try {
             const notes = await noteService.getAllNotes(req.user.id, req.query);
-            res.status(200).json({
-                message: 'Notes retrieved successfully',
-                success: true,
-                notes: notes
-            });
+            this.successResponse(res, 'Notes retrieved successfully', notes);
         } catch (error) {
-            console.error('Error retrieving notes:', error);
-            res.status(500).json({
-                message: 'Error retrieving notes',
-                success: false,
-                notes: []
-            });
+            this.errorResponse(res, error);
         }
     }
 
     async getNoteById(req, res) {
         try {
             const note = await noteService.getNoteById(req.user.id, req.params.id);
-            res.status(200).json({
-                message: 'Note retrieved successfully',
-                success: true,
-                note: note
-            });
+            this.successResponse(res, 'Note retrieved successfully', note);
         } catch (error) {
-            console.error('Error retrieving note by ID:', error);
-            res.status(500).json({
-                message: 'Error retrieving note',
-                success: false,
-                note: null
-            });
+            this.errorResponse(res, error);
         }
     }
 
     async updateNote(req, res) {
         try {
             const note = await noteService.updateNote(req.user.id, req.body);
-            res.status(200).json({
-                message: 'Note updated successfully',
-                success: true,
-                note: note
-            });
+            this.successResponse(res, 'Note updated successfully', note);
         } catch (error) {
-            console.error('Error updating note:', error);
-            res.status(500).json({
-                message: 'Error updating note',
-                success: false,
-                note: null
-            });
+            this.errorResponse(res, error);
         }
     }
 
     async deleteNote(req, res) {
         try {
             await noteService.deleteNote(req.user.id, req.params.id);
-            res.status(200).json({
-                message: 'Note deleted successfully',
-                success: true
-            });
+            this.successResponse(res, 'Note deleted successfully');
         } catch (error) {
-            console.error('Error deleting note:', error);
-            res.status(500).json({
-                message: 'Error deleting note',
-                success: false
-            });
+            this.errorResponse(res, error);
         }
     }
 }

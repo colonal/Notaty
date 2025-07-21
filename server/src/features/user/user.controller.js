@@ -1,10 +1,11 @@
-import ClientError from '../../utils/errors/client_error.js';
+import { BaseController } from '../../core/base.controller.js';
 import UserService from './user.service.js';
 
-class UserController {
+class UserController extends BaseController {
     #userService;
 
     constructor() {
+        super();
         this.#userService = new UserService();
         this.createUser = this.createUser.bind(this);
         this.loginUser = this.loginUser.bind(this);
@@ -19,13 +20,9 @@ class UserController {
         try {
             const { name, email, password } = req.body;
             const data = await this.#userService.createUser(name, email, password);
-            res.status(201).json(data);
+            this.createdResponse(res, 'User created successfully.', data);
         } catch (error) {
-            if (error instanceof ClientError) {
-                res.status(error.statusCode).json({ error: error.message });
-            } else {
-                res.status(500).json({ error: "Internal server error" });
-            }
+            this.errorResponse(res, error);
         }
     }
 
@@ -33,24 +30,18 @@ class UserController {
         try {
             const { email, password } = req.body;
             const user = await this.#userService.loginUser(email, password);
-            res.status(200).json(user);
+            this.successResponse(res, 'Login successful.', user);
         } catch (error) {
-            console.error(error);
-            if (error instanceof ClientError) {
-                res.status(error.statusCode).json({ error: error.message });
-            } else {
-                res.status(500).json({ error: "Internal server error" });
-            }
+            this.errorResponse(res, error);
         }
     }
 
     async findAllUsers(req, res) {
         try {
             const users = await this.#userService.findAllUsers();
-            res.status(200).json(users);
+            this.successResponse(res, 'Users retrieved successfully.', users);
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: "Internal server error" });
+            this.errorResponse(res, error);
         }
     }
 
@@ -58,14 +49,9 @@ class UserController {
         try {
             const { id } = req.params;
             const user = await this.#userService.findUserById(id);
-            res.status(200).json(user);
+            this.successResponse(res, 'User retrieved successfully.', user);
         } catch (error) {
-            console.error(error);
-            if (error instanceof ClientError) {
-                res.status(error.statusCode).json({ error: error.message });
-            } else {
-                res.status(500).json({ error: "Internal server error" });
-            }
+            this.errorResponse(res, error);
         }
     }
 
@@ -74,10 +60,9 @@ class UserController {
             const { id } = req.params;
             const { name } = req.body;
             const user = await this.#userService.updateUser(id, name);
-            res.status(200).json(user);
+            this.successResponse(res, 'User updated successfully.', user);
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: "Internal server error" });
+            this.errorResponse(res, error);
         }
     }
 
@@ -85,20 +70,18 @@ class UserController {
         try {
             const { id } = req.params;
             await this.#userService.deleteUser(id);
-            res.status(200).json({ message: "User deleted successfully" });
+            this.successResponse(res, 'User deleted successfully.');
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: "Internal server error" });
+            this.errorResponse(res, error);
         }
     }
 
     async deleteAllUsers(req, res) {
         try {
             await this.#userService.deleteAllUsers();
-            res.status(200).json({ message: "All users deleted successfully" });
+            this.successResponse(res, 'All users deleted successfully.');
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: "Internal server error" });
+            this.errorResponse(res, error);
         }
     }
 }

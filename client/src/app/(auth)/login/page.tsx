@@ -28,17 +28,12 @@ export default function Login() {
         <div className="text-center">
           <p className="text-sm text-[var(--foreground)] opacity-80">
             Don&apos;t have an account?{' '}
-            <Link href="/signup">
-              <span className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
-                Sign up
-              </span>
-            </Link>
-            <a
+            <Link
               href="/signup"
               className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
             >
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

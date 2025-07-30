@@ -42,6 +42,7 @@ export class RouteConfig {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  // Get token from cookies on server-side
   const token = request.cookies.get("token")?.value;
 
   // Handle public routes (including auth routes)
@@ -62,7 +63,6 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
-
 // Configure which routes should be handled by this middleware
 export const config = {
   matcher: [

@@ -11,6 +11,7 @@ export class UserManagementService {
    * @param user The user data to save
    */
   static saveToken(token: string): void {
+    console.log(token);
     Cookies.set(this.TOKEN_KEY, token, {
       expires: this.TOKEN_EXPIRY_DAYS,
       secure: process.env.NODE_ENV === "production",

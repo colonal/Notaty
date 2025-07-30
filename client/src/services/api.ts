@@ -53,13 +53,17 @@ export interface RegisterCredentials {
 }
 
 export interface LoginResponse {
-  token: string;
-  user: User;
+  data: {
+    token: string;
+    user: User;
+  };
 }
 
 export interface RegisterResponse {
-  token: string;
-  user: User;
+  data: {
+    token: string;
+    user: User;
+  };
 }
 
 // API functions
@@ -68,7 +72,7 @@ export const loginUser = async (
 ): Promise<LoginResponse> => {
   try {
     const { data } = await api.post<LoginResponse>("/users/login", credentials);
-    UserManagementService.saveToken(data.token);
+    UserManagementService.saveToken(data.data.token);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -88,7 +92,7 @@ export const registerUser = async (
       "/users/register",
       credentials
     );
-    UserManagementService.saveToken(data.token);
+    UserManagementService.saveToken(data.data.token);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

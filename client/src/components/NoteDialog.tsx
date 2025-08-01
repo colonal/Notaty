@@ -1,5 +1,6 @@
 "use client";
 
+import { CloseIcon, LoadingSpinner } from "@/components/icons";
 import { createNote, getNote, updateNote } from "@/services/api";
 import { useEffect, useState } from "react";
 
@@ -99,26 +100,13 @@ export default function NoteDialog({
                             onClick={onClose}
                             className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
+                            <CloseIcon />
                         </button>
                     </div>
 
                     {isFetching ? (
                         <div className="flex justify-center items-center py-12">
-                            <div className="w-8 h-8 border-2 border-[var(--primary)]/30 border-t-[var(--primary)] rounded-full animate-spin" />
+                            <LoadingSpinner className="w-8 h-8 border-[var(--primary)]/30 border-t-[var(--primary)]" />
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -188,7 +176,7 @@ export default function NoteDialog({
                                 >
                                     {isLoading ? (
                                         <>
-                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            <LoadingSpinner className="w-4 h-4 border-white/30 border-t-white" />
                                             {mode === "create" ? "Creating..." : "Updating..."}
                                         </>
                                     ) : mode === "create" ? (

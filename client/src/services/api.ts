@@ -53,17 +53,13 @@ export interface RegisterCredentials {
 }
 
 export interface LoginResponse {
-  data: {
-    token: string;
-    user: User;
-  };
+  token: string;
+  user: User;
 }
 
 export interface RegisterResponse {
-  data: {
-    token: string;
-    user: User;
-  };
+  token: string;
+  user: User;
 }
 
 export interface BaseResponse<T> {
@@ -97,9 +93,12 @@ export const loginUser = async (
   credentials: LoginCredentials
 ): Promise<LoginResponse> => {
   try {
-    const { data } = await api.post<LoginResponse>("/users/login", credentials);
+    const { data } = await api.post<BaseResponse<LoginResponse>>(
+      "/users/login",
+      credentials
+    );
     UserManagementService.saveToken(data.data.token);
-    return data;
+    return data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage = error.response?.data?.message || "Login failed";
@@ -114,12 +113,12 @@ export const registerUser = async (
   credentials: RegisterCredentials
 ): Promise<RegisterResponse> => {
   try {
-    const { data } = await api.post<RegisterResponse>(
+    const { data } = await api.post<BaseResponse<RegisterResponse>>(
       "/users/register",
       credentials
     );
     UserManagementService.saveToken(data.data.token);
-    return data;
+    return data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage =

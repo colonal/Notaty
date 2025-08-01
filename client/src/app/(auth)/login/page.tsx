@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import LoginForm from './component/login_form';
 
 export default function Login() {
@@ -23,7 +24,9 @@ export default function Login() {
           </p>
         </div>
 
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
 
         <div className="text-center">
           <p className="text-sm text-[var(--foreground)] opacity-80">

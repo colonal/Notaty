@@ -66,6 +66,32 @@ export interface RegisterResponse {
   };
 }
 
+export interface BaseResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
+
+export interface Note {
+  id: string;
+  userId: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateNoteRequest {
+  title: string;
+  content: string;
+}
+
+export interface UpdateNoteRequest {
+  _id: string;
+  title?: string;
+  content?: string;
+}
+
 // API functions
 export const loginUser = async (
   credentials: LoginCredentials
@@ -99,6 +125,87 @@ export const registerUser = async (
       const errorMessage =
         error.response?.data?.message || "Registration failed";
       console.error("Registration error:", error.response?.data);
+      throw new Error(errorMessage);
+    }
+    throw error;
+  }
+};
+
+export const createNote = async (
+  note: CreateNoteRequest
+): Promise<BaseResponse<Note>> => {
+  try {
+    const { data } = await api.post<BaseResponse<Note>>("/notes", note);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to create note";
+      console.error("Note creation error:", error.response?.data);
+      throw new Error(errorMessage);
+    }
+    throw error;
+  }
+};
+
+export const updateNote = async (
+  note: UpdateNoteRequest
+): Promise<BaseResponse<Note>> => {
+  try {
+    const { data } = await api.put<BaseResponse<Note>>(`/notes`, note);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to update note";
+      console.error("Note update error:", error.response?.data);
+      throw new Error(errorMessage);
+    }
+    throw error;
+  }
+};
+
+export const deleteNote = async (
+  noteId: string
+): Promise<BaseResponse<null>> => {
+  try {
+    const { data } = await api.delete<BaseResponse<null>>(`/notes/${noteId}`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to delete note";
+      console.error("Note deletion error:", error.response?.data);
+      throw new Error(errorMessage);
+    }
+    throw error;
+  }
+};
+
+export const getNote = async (noteId: string): Promise<BaseResponse<Note>> => {
+  try {
+    const { data } = await api.get<BaseResponse<Note>>(`/notes/${noteId}`);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch note";
+      console.error("Note fetch error:", error.response?.data);
+      throw new Error(errorMessage);
+    }
+    throw error;
+  }
+};
+
+export const getNotes = async (): Promise<BaseResponse<Note[]>> => {
+  try {
+    const { data } = await api.get<BaseResponse<Note[]>>("/notes");
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch notes";
+      console.error("Notes fetch error:", error.response?.data);
       throw new Error(errorMessage);
     }
     throw error;

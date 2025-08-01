@@ -63,17 +63,16 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
-// Configure which routes should be handled by this middleware
 export const config = {
   matcher: [
     /*
-     * Match all paths except:
+     * Match all request paths except for the ones starting with:
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public folder
+     * - anything with a dot (static files)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|public).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)",
   ],
 };

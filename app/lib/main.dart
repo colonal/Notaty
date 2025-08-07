@@ -1,3 +1,4 @@
+import 'package:Notaty/core/di/di_setup.dart';
 import 'package:Notaty/core/enum/localization.dart';
 import 'package:Notaty/core/route/app_route.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -5,6 +6,11 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize dependency injection
+  configureDependencies();
+
+  // Initialize localization
   await EasyLocalization.ensureInitialized();
 
   runApp(
@@ -32,8 +38,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: AppRoute.initialRoute(),
-      onGenerateRoute: AppRoute.onGenerateRoute,
+      initialRoute: getIt<AppRoute>().initialRoute(),
+      onGenerateRoute: getIt<AppRoute>().onGenerateRoute,
     );
   }
 }

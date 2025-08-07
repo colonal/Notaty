@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../features/home/screen/home_screen.dart';
 
+@singleton
+/// AppRoute class handles the routing for the application.
 class AppRoute {
-  // Initial route for the application
-  static String initialRoute() => HomePage.routeName;
+  /// Initial route for the application
+  String initialRoute() => HomePage.routeName;
 
   /// Generates routes for the application.
-  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+  Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case HomePage.routeName:
         return MaterialPageRoute(builder: (_) => HomePage());

@@ -1,6 +1,7 @@
 import 'package:Notaty/core/di/di_setup.dart';
 import 'package:Notaty/core/enum/localization.dart';
 import 'package:Notaty/core/route/app_route.dart';
+import 'package:Notaty/core/theming/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +33,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'app_name'.tr(),
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      themeMode: ThemeMode.dark,
+      theme: AppTheme.dark,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

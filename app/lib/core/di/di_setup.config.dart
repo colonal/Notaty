@@ -19,6 +19,8 @@ import 'package:Notaty/features/auth/data/data_sources/auth_data_sources.dart'
 import 'package:Notaty/features/auth/data/repositories/auth_repositories.dart'
     as _i570;
 import 'package:Notaty/features/auth/logic/login/login_cubit.dart' as _i796;
+import 'package:Notaty/features/auth/logic/register/register_cubit.dart'
+    as _i108;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -40,6 +42,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i796.LoginCubit>(
       () => _i796.LoginCubit(repositories: gh<_i570.AuthRepositories>()),
+    );
+    gh.factory<_i108.RegisterCubit>(
+      () => _i108.RegisterCubit(repositories: gh<_i570.AuthRepositories>()),
     );
     return this;
   }

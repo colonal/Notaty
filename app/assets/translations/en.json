@@ -10,21 +10,21 @@
         "default": "Oops! Something went wrong. Please try again.",
         "token_invalidated": "Your session has expired"
     },
-    "auth":{
-        "login":{
+    "auth": {
+        "login": {
             "title": "Welcome Back",
             "subtitle": "Please sign in to your account",
             "form": {
-                "email":{
+                "email": {
                     "hint": "Enter your email address",
-                    "validation":{
+                    "validation": {
                         "required": "Email is required",
                         "invalid": "Please enter a valid email address"
                     }
                 },
-                "password":{
+                "password": {
                     "hint": "Enter your password",
-                    "validation":{
+                    "validation": {
                         "required": "Password is required",
                         "min_length": "Password must be at least 6 characters long"
                     }
@@ -34,6 +34,42 @@
             },
             "dont_have_account": "Don't have an account?",
             "signUp": "Sign up"
+        },
+        "register": {
+            "title": "Create your account",
+            "subtitle": "Join us today and get started",
+            "form": {
+                "name": {
+                    "hint": "Full Name",
+                    "validation": {
+                        "required": "Please enter your name"
+                    }
+                },
+                "email": {
+                    "hint": "Email address",
+                    "validation": {
+                        "required": "Please enter your email",
+                        "invalid": "Please enter a valid email"
+                    }
+                },
+                "password": {
+                    "hint": "Password",
+                    "validation": {
+                        "required": "Please enter your password",
+                        "min_length": "Password must be at least 6 characters"
+                    }
+                },
+                "confirm_password": {
+                    "hint": "Confirm Password",
+                    "validation": {
+                        "required": "Please confirm your password",
+                        "mismatch": "Passwords do not match"
+                    }
+                },
+                "register_button": "Create Account"
+            },
+            "already_have_account": "Already have an account?",
+            "signIn": "Sign in"
         }
     }
 }

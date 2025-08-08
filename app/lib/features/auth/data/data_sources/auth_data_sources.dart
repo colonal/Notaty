@@ -6,6 +6,8 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../core/networking/api_constants.dart';
 import '../model/login/login_request.dart';
 import '../model/login/login_response.dart';
+import '../model/register/register_request.dart';
+import '../model/register/register_response.dart';
 
 part 'auth_data_sources.g.dart';
 
@@ -19,4 +21,9 @@ abstract class AuthDataSources {
 
   @POST(ApiConstants.loginEndpoint)
   Future<BaseResponse<LoginResponse>> login(@Body() LoginRequest loginRequest);
+
+  @POST(ApiConstants.registerEndpoint)
+  Future<BaseResponse<RegisterResponse>> register(
+    @Body() RegisterRequest registerRequest,
+  );
 }

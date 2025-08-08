@@ -83,19 +83,21 @@ class _LoginScreenFormState extends State<LoginScreenForm> {
               },
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  print("object");
-                  _formKey.currentState?.save();
-                  context.read<LoginCubit>().login(email, password);
-                } else {
-                  print("object2");
-                  autovalidateMode = AutovalidateMode.always;
-                  setState(() {});
-                }
-              },
-              child: Text('Login'),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState?.save();
+                    context.read<LoginCubit>().login(email, password);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+                child: Text('Login'),
+              ),
             ),
           ],
         ),

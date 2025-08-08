@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-import 'api_constants.dart';
 import 'api_error_model.dart';
 
 enum DataSource {
@@ -23,58 +23,56 @@ enum DataSource {
 }
 
 class ResponseMessage {
-  static const String NO_CONTENT =
-      ApiErrors.noContent; // success with no data (no content)
-  static const String BAD_REQUEST =
-      ApiErrors.badRequestError; // failure, API rejected request
-  static const String UNAUTHORIZED =
-      ApiErrors.unauthorizedError; // failure, user is not authorised
-  static const String FORBIDDEN =
-      ApiErrors.forbiddenError; //  failure, API rejected request
-  static const String INTERNAL_SERVER_ERROR =
-      ApiErrors.internalServerError; // failure, crash in server side
-  static const String NOT_FOUND =
-      ApiErrors.notFoundError; // failure, crash in server side
+  static const String NO_CONTENT = "api_error.default";
+  static const String BAD_REQUEST = "api_error.default";
+  static const String UNAUTHORIZED = "api_error.token_invalidated";
+  static const String FORBIDDEN = "api_error.default";
+  static const String INTERNAL_SERVER_ERROR = "api_error.default";
+  static const String NOT_FOUND = "api_error.default";
 
   // local status code
-  static String CONNECT_TIMEOUT = ApiErrors.timeoutError;
-  static String CANCEL = ApiErrors.defaultError;
-  static String RECEIVE_TIMEOUT = ApiErrors.timeoutError;
-  static String SEND_TIMEOUT = ApiErrors.timeoutError;
-  static String CACHE_ERROR = ApiErrors.cacheError;
-  static String NO_INTERNET_CONNECTION = ApiErrors.noInternetError;
-  static String DEFAULT = ApiErrors.defaultError;
+  static const String CONNECT_TIMEOUT = "api_error.connection_timeout";
+  static const String CANCEL = "api_error.cancel";
+  static const String RECEIVE_TIMEOUT = "api_error.receive_timeout";
+  static const String SEND_TIMEOUT = "api_error.send_timeout";
+  static const String CACHE_ERROR = "api_error.connection_error";
+  static const String NO_INTERNET_CONNECTION = "api_error.connection_error";
+  static const String DEFAULT = "api_error.default";
 }
 
 extension DataSourceExtension on DataSource {
   ApiErrorModel getFailure() {
     switch (this) {
       case DataSource.NO_CONTENT:
-        return ApiErrorModel(message: ResponseMessage.NO_CONTENT);
+        return ApiErrorModel(message: ResponseMessage.NO_CONTENT.tr());
       case DataSource.BAD_REQUEST:
-        return ApiErrorModel(message: ResponseMessage.BAD_REQUEST);
+        return ApiErrorModel(message: ResponseMessage.BAD_REQUEST.tr());
       case DataSource.FORBIDDEN:
-        return ApiErrorModel(message: ResponseMessage.FORBIDDEN);
+        return ApiErrorModel(message: ResponseMessage.FORBIDDEN.tr());
       case DataSource.UNAUTHORIZED:
-        return ApiErrorModel(message: ResponseMessage.UNAUTHORIZED);
+        return ApiErrorModel(message: ResponseMessage.UNAUTHORIZED.tr());
       case DataSource.NOT_FOUND:
-        return ApiErrorModel(message: ResponseMessage.NOT_FOUND);
+        return ApiErrorModel(message: ResponseMessage.NOT_FOUND.tr());
       case DataSource.INTERNAL_SERVER_ERROR:
-        return ApiErrorModel(message: ResponseMessage.INTERNAL_SERVER_ERROR);
+        return ApiErrorModel(
+          message: ResponseMessage.INTERNAL_SERVER_ERROR.tr(),
+        );
       case DataSource.CONNECT_TIMEOUT:
-        return ApiErrorModel(message: ResponseMessage.CONNECT_TIMEOUT);
+        return ApiErrorModel(message: ResponseMessage.CONNECT_TIMEOUT.tr());
       case DataSource.CANCEL:
-        return ApiErrorModel(message: ResponseMessage.CANCEL);
+        return ApiErrorModel(message: ResponseMessage.CANCEL.tr());
       case DataSource.RECEIVE_TIMEOUT:
-        return ApiErrorModel(message: ResponseMessage.RECEIVE_TIMEOUT);
+        return ApiErrorModel(message: ResponseMessage.RECEIVE_TIMEOUT.tr());
       case DataSource.SEND_TIMEOUT:
-        return ApiErrorModel(message: ResponseMessage.SEND_TIMEOUT);
+        return ApiErrorModel(message: ResponseMessage.SEND_TIMEOUT.tr());
       case DataSource.CACHE_ERROR:
-        return ApiErrorModel(message: ResponseMessage.CACHE_ERROR);
+        return ApiErrorModel(message: ResponseMessage.CACHE_ERROR.tr());
       case DataSource.NO_INTERNET_CONNECTION:
-        return ApiErrorModel(message: ResponseMessage.NO_INTERNET_CONNECTION);
+        return ApiErrorModel(
+          message: ResponseMessage.NO_INTERNET_CONNECTION.tr(),
+        );
       case DataSource.DEFAULT:
-        return ApiErrorModel(message: ResponseMessage.DEFAULT);
+        return ApiErrorModel(message: ResponseMessage.DEFAULT.tr());
     }
   }
 }

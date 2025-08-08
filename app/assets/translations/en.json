@@ -1,3 +1,39 @@
 {
-    "app_name": "Notaty"
+    "app_name": "Notaty",
+    "api_error": {
+        "connection_error": "Connection to server failed",
+        "cancel": "Request to the server was cancelled",
+        "connection_timeout": "Connection timeout with the server",
+        "unknown": "Connection to the server failed due to internet connection",
+        "receive_timeout": "Receive timeout in connection with the server",
+        "send_timeout": "Send timeout in connection with the server",
+        "default": "Oops! Something went wrong. Please try again.",
+        "token_invalidated": "Your session has expired"
+    },
+    "auth":{
+        "login":{
+            "title": "Welcome Back",
+            "subtitle": "Please sign in to your account",
+            "form": {
+                "email":{
+                    "hint": "Enter your email address",
+                    "validation":{
+                        "required": "Email is required",
+                        "invalid": "Please enter a valid email address"
+                    }
+                },
+                "password":{
+                    "hint": "Enter your password",
+                    "validation":{
+                        "required": "Password is required",
+                        "min_length": "Password must be at least 6 characters long"
+                    }
+                },
+                "forgot_password": "Forgot Password?",
+                "login_button": "Login"
+            },
+            "dont_have_account": "Don't have an account?",
+            "signUp": "Sign up"
+        }
+    }
 }

@@ -19,7 +19,7 @@ class _AuthDataSources implements AuthDataSources {
 
   @override
   Future<BaseResponse<LoginResponse>> login(LoginRequest loginRequest) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'includeToken': false};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -52,7 +52,7 @@ class _AuthDataSources implements AuthDataSources {
   Future<BaseResponse<RegisterResponse>> register(
     RegisterRequest registerRequest,
   ) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'includeToken': false};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

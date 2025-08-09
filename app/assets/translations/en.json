@@ -10,6 +10,25 @@
         "default": "Oops! Something went wrong. Please try again.",
         "token_invalidated": "Your session has expired"
     },
+    "home": {
+        "app_bar": {
+            "title": "My Notes",
+            "logout": "Logout",
+            "loading_message": "Loading...",
+            "retry": "Try again",
+            "error":"Error loading user date"
+        },
+        "notes": {
+            "empty": {
+                "title": "No Notes Yet",
+                "subtitle": "Create your first note to get started"
+            },
+            "retry": "Retry",
+            "delete": {
+                "success": "Note deleted successfully"
+            }
+        }
+    },
     "auth": {
         "login": {
             "title": "Welcome Back",

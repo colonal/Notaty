@@ -24,6 +24,11 @@ import 'package:Notaty/features/auth/data/repositories/auth_repositories.dart'
 import 'package:Notaty/features/auth/logic/login/login_cubit.dart' as _i796;
 import 'package:Notaty/features/auth/logic/register/register_cubit.dart'
     as _i108;
+import 'package:Notaty/features/home/data/data_sources/notes_data_sources.dart'
+    as _i362;
+import 'package:Notaty/features/home/data/repositories/notes_repositories.dart'
+    as _i637;
+import 'package:Notaty/features/home/logic/notes_cubit.dart' as _i967;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -51,9 +56,21 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i166.AuthDataSources>(
       () => _i166.AuthDataSources.new(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i362.NotesDataSources>(
+      () => _i362.NotesDataSources.new(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i570.AuthRepositories>(
       () =>
           _i570.AuthRepositories(authDataSources: gh<_i166.AuthDataSources>()),
+    );
+    gh.lazySingleton<_i637.NotesRepositories>(
+      () => _i637.NotesRepositories(gh<_i362.NotesDataSources>()),
+    );
+    gh.factory<_i967.NotesCubit>(
+      () => _i967.NotesCubit(
+        repository: gh<_i637.NotesRepositories>(),
+        userServices: gh<_i962.UserServices>(),
+      ),
     );
     gh.factory<_i796.LoginCubit>(
       () => _i796.LoginCubit(

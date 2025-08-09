@@ -8,8 +8,29 @@ import '../../features/home/screen/home_screen.dart';
 @singleton
 /// AppRoute class handles the routing for the application.
 class AppRoute {
+  final navigatorKey = GlobalKey<NavigatorState>();
+
   /// Initial route for the application
-  String initialRoute() => LoginScreen.routeName;
+  String? _initialRoute;
+
+  /// Initializes the initial route based on the authentication state.
+  /// If a token exists in secure storage, the initial route is set to HomePage.
+  Future<void> init(Future<bool> Function() isAuthCallBack) async {
+    final bool isAuth = await isAuthCallBack();
+    if (isAuth) {
+      _initialRoute = HomePage.routeName;
+    } else {
+      _initialRoute = LoginScreen.routeName;
+    }
+  }
+
+  /// Initial route for the application
+  String initialRoute() {
+    if (_initialRoute == null) {
+      throw Exception('Initial route is not set. Call init() first.');
+    }
+    return _initialRoute!;
+  }
 
   /// Generates routes for the application.
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -23,5 +44,12 @@ class AppRoute {
     }
 
     return null; // Placeholder for actual route generation logic
+  }
+
+  void logOut() {
+    navigatorKey.currentState?.pushNamedAndRemoveUntil(
+      LoginScreen.routeName,
+      (Route<dynamic> route) => false,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:Notaty/core/networking/api_result.dart';
+import 'package:Notaty/core/services/user_services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,10 +12,14 @@ part 'login_state.dart';
 @injectable
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepositories _repositories;
+  final UserServices _userServices;
 
-  LoginCubit({required AuthRepositories repositories})
-    : _repositories = repositories,
-      super(LoginInitial());
+  LoginCubit({
+    required AuthRepositories repositories,
+    required UserServices userServices,
+  }) : _repositories = repositories,
+       _userServices = userServices,
+       super(LoginInitial());
 
   void login(String email, String password) async {
     emit(LoginLoading());
@@ -23,6 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     result.when(
       success: (response) {
+        _userServices.login(response.token);
         emit(LoginSuccess(response));
       },
       failure: (error) {

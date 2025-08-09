@@ -35,10 +35,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_secure_storage: ^9.2.4
   freezed_annotation: ^3.1.0
   get_it: ^8.2.0
   injectable: ^2.5.1
   json_annotation: ^4.9.0
+  jwt_decoder: ^2.0.1
   modal_progress_hud_nsn: ^0.5.1
   pretty_dio_logger: ^1.4.0
   retrofit: ^4.7.0

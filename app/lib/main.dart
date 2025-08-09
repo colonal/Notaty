@@ -1,6 +1,7 @@
 import 'package:Notaty/core/di/di_setup.dart';
 import 'package:Notaty/core/enum/localization.dart';
 import 'package:Notaty/core/route/app_route.dart';
+import 'package:Notaty/core/services/user_services.dart';
 import 'package:Notaty/core/theming/app_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ void main() async {
 
   // Initialize localization
   await EasyLocalization.ensureInitialized();
+
+  // Initialize the app route
+  await getIt<AppRoute>().init(getIt<UserServices>().isAuthenticated);
 
   runApp(
     EasyLocalization(
@@ -38,6 +42,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      navigatorKey: getIt<AppRoute>().navigatorKey,
       initialRoute: getIt<AppRoute>().initialRoute(),
       onGenerateRoute: getIt<AppRoute>().onGenerateRoute,
     );

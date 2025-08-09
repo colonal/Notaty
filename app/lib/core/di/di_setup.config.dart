@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:Notaty/core/networking/dio_factory.dart' as _i553;
 import 'package:Notaty/core/route/app_route.dart' as _i902;
+import 'package:Notaty/core/services/secure_storage.dart' as _i536;
+import 'package:Notaty/core/services/user_services.dart' as _i962;
 import 'package:Notaty/features/auth/data/data_sources/auth_data_sources.dart'
     as _i166;
 import 'package:Notaty/features/auth/data/repositories/auth_repositories.dart'
@@ -32,7 +34,11 @@ extension GetItInjectableX on _i174.GetIt {
     final dioModule = _$DioModule();
     gh.singleton<_i553.DioFactory>(() => _i553.DioFactory());
     gh.singleton<_i902.AppRoute>(() => _i902.AppRoute());
+    gh.singleton<_i536.SecureStorage>(() => _i536.SecureStorage());
     gh.singleton<_i361.Dio>(() => dioModule.dio(gh<_i553.DioFactory>()));
+    gh.singleton<_i962.UserServices>(
+      () => _i962.UserServices(gh<_i536.SecureStorage>(), gh<_i902.AppRoute>()),
+    );
     gh.lazySingleton<_i166.AuthDataSources>(
       () => _i166.AuthDataSources.new(gh<_i361.Dio>()),
     );
@@ -41,10 +47,16 @@ extension GetItInjectableX on _i174.GetIt {
           _i570.AuthRepositories(authDataSources: gh<_i166.AuthDataSources>()),
     );
     gh.factory<_i796.LoginCubit>(
-      () => _i796.LoginCubit(repositories: gh<_i570.AuthRepositories>()),
+      () => _i796.LoginCubit(
+        repositories: gh<_i570.AuthRepositories>(),
+        userServices: gh<_i962.UserServices>(),
+      ),
     );
     gh.factory<_i108.RegisterCubit>(
-      () => _i108.RegisterCubit(repositories: gh<_i570.AuthRepositories>()),
+      () => _i108.RegisterCubit(
+        repositories: gh<_i570.AuthRepositories>(),
+        userServices: gh<_i962.UserServices>(),
+      ),
     );
     return this;
   }

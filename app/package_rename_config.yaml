@@ -1,0 +1,6 @@
+package_rename_config:
+  android:
+    app_name: "Notaty"
+
+  ios:
+    app_name: "Notaty"

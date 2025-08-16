@@ -151,7 +151,7 @@ export const updateNote = async (
   note: UpdateNoteRequest
 ): Promise<BaseResponse<Note>> => {
   try {
-    const { data } = await api.put<BaseResponse<Note>>(`/notes`, note);
+    const { data } = await api.put<BaseResponse<Note>>(`/notes/${note._id}`, note);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

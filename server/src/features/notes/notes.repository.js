@@ -20,7 +20,7 @@ class NoteRepository {
         return Note.findOne({ _id: id, userId: userId });
     }
 
-    async updateNote(userId, note) {
+    async updateNote(userId, id, note) {
         const updateFields = {};
         if (note.title) {
             updateFields.title = note.title;
@@ -30,7 +30,7 @@ class NoteRepository {
         }
         updateFields.updatedAt = new Date();
 
-        return Note.findOneAndUpdate({ _id: note["_id"], userId: userId }, updateFields, { new: true });
+        return Note.findOneAndUpdate({ _id: id, userId: userId }, updateFields, { new: true });
     }
 
     async deleteNote(userId, id) {

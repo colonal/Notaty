@@ -12,8 +12,8 @@ router.get('/', authMiddleware, noteController.getAllNotes);
 // Create GET API to be able to retrieve a note by ID
 router.get('/:id', authMiddleware, noteController.getNoteById);
 
-// Create PUT API to be able to update a note
-router.put('/', authMiddleware, noteController.updateNote);
+// Create PUT API to be able to update a note by ID
+router.put('/:id', authMiddleware, noteController.updateNote);
 
 // Create DELETE API to be able to delete a note
 router.delete('/:id', authMiddleware, noteController.deleteNote);

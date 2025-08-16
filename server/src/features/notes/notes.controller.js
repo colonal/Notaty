@@ -40,7 +40,7 @@ class NoteController extends BaseController {
 
     async updateNote(req, res) {
         try {
-            const note = await noteService.updateNote(req.user.id, req.body);
+            const note = await noteService.updateNote(req.user.id, req.params.id, req.body);
             this.successResponse(res, 'Note updated successfully', note);
         } catch (error) {
             this.errorResponse(res, error);

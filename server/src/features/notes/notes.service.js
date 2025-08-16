@@ -28,8 +28,8 @@ class NoteService {
         return noteRepository.getNoteById(userId, id);
     }
 
-    async updateNote(userId, note) {
-        const updatedNote = await noteRepository.updateNote(userId, note);
+    async updateNote(userId, id, note) {
+        const updatedNote = await noteRepository.updateNote(userId, id, note);
         if (!updatedNote) {
             throw new ClientError('Note not found', 404);
         }

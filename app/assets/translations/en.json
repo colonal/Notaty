@@ -1,0 +1,125 @@
+{
+    "app_name": "Notaty",
+    "api_error": {
+        "connection_error": "Connection to server failed",
+        "cancel": "Request to the server was cancelled",
+        "connection_timeout": "Connection timeout with the server",
+        "unknown": "Connection to the server failed due to internet connection",
+        "receive_timeout": "Receive timeout in connection with the server",
+        "send_timeout": "Send timeout in connection with the server",
+        "default": "Oops! Something went wrong. Please try again.",
+        "token_invalidated": "Your session has expired"
+    },
+    "home": {
+        "app_bar": {
+            "title": "My Notes",
+            "logout": "Logout",
+            "loading_message": "Loading...",
+            "retry": "Try again",
+            "error":"Error loading user date"
+        },
+        "notes": {
+            "empty": {
+                "title": "No Notes Yet",
+                "subtitle": "Create your first note to get started"
+            },
+            "retry": "Retry",
+            "delete": {
+                "success": "Note deleted successfully"
+            }
+        },
+        "floating_action_button":{
+            "tooltip": "Create Note"
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Welcome Back",
+            "subtitle": "Please sign in to your account",
+            "form": {
+                "email": {
+                    "hint": "Enter your email address",
+                    "validation": {
+                        "required": "Email is required",
+                        "invalid": "Please enter a valid email address"
+                    }
+                },
+                "password": {
+                    "hint": "Enter your password",
+                    "validation": {
+                        "required": "Password is required",
+                        "min_length": "Password must be at least 6 characters long"
+                    }
+                },
+                "forgot_password": "Forgot Password?",
+                "login_button": "Login"
+            },
+            "dont_have_account": "Don't have an account?",
+            "signUp": "Sign up"
+        },
+        "register": {
+            "title": "Create your account",
+            "subtitle": "Join us today and get started",
+            "form": {
+                "name": {
+                    "hint": "Full Name",
+                    "validation": {
+                        "required": "Please enter your name"
+                    }
+                },
+                "email": {
+                    "hint": "Email address",
+                    "validation": {
+                        "required": "Please enter your email",
+                        "invalid": "Please enter a valid email"
+                    }
+                },
+                "password": {
+                    "hint": "Password",
+                    "validation": {
+                        "required": "Please enter your password",
+                        "min_length": "Password must be at least 6 characters"
+                    }
+                },
+                "confirm_password": {
+                    "hint": "Confirm Password",
+                    "validation": {
+                        "required": "Please confirm your password",
+                        "mismatch": "Passwords do not match"
+                    }
+                },
+                "register_button": "Create Account"
+            },
+            "already_have_account": "Already have an account?",
+            "signIn": "Sign in"
+        }
+    },
+    "note": {
+        "app_bar": {
+            "title_new": "Create Note",
+            "title_edit": "Update Note"
+        },
+        "body": {
+            "button_edit": "Edit Note",
+            "button_new": "New Note",
+            "success_create": "Note created successfully",
+            "success_update": "Note updated successfully",
+            "success_deleted": "Note updated successfully",
+            "go_back": "Go Back",
+            "form":{
+                "title": {
+                    "hint": "Enter note title",
+                    "validation": {
+                        "required": "Title is required"
+                    }
+                },
+                "content": {
+                    "hint": "Enter note body",
+                    "validation": {
+                        "required": "Body is required"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -92,28 +92,43 @@ Notaty is a web-based note-taking application that allows users to create, manag
     ```
     The client will be available at http://localhost:3000
 
-## Folder Structure
+## Mobile App (Flutter)
 
-```
-notaty/
-├── client/
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── (auth)/       # Auth pages (login, signup)
-│   │   │   └── (main)/       # Main application pages
-│   │   ├── components/     # Reusable React components
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── services/       # API service calls
-│   └── package.json
-└── server/
-    ├── src/
-    │   ├── config/         # Database and environment config
-    │   ├── features/       # Core features (users, notes)
-    │   │   ├── notes/
-    │   │   └── user/
-    │   ├── middlewares/    # Custom Express middlewares
-    │   └── utils/          # Utility functions (auth, response)
-    └── package.json
+The mobile application is built with Flutter and allows users to interact with their notes on the go.
+
+### Prerequisites
+
+- Flutter SDK (check `app/pubspec.yaml` for version constraints)
+
+### Setup Steps
+
+1.  Navigate to the `app` directory:
+    ```bash
+    cd app
+    ```
+2.  Install dependencies:
+    ```bash
+    flutter pub get
+    ```
+
+### Configure Environment Variables
+
+The mobile app requires the API base URL to connect to the backend server.
+
+1.  Create a `.env` file in the `app/` directory.
+2.  Add the following variable:
+    ```
+    API_BASE_URL=http://localhost:5000
+    ```
+    _Note: Change the URL if your server is running elsewhere. It should point to the address of the backend server._
+
+### Running the App
+
+To run the application, you need to provide the environment variables during the build/run process.
+
+```bash
+cd app
+flutter run --dart-define-from-file=.env
 ```
 
 ## Deployment
@@ -146,3 +161,50 @@ For any inquiries or issues, please open an issue on the GitHub repository.
 ## License
 
 This project is licensed under the ISC License.
+
+## Folder Structure
+
+```
+notaty/
+├── app/              # Flutter mobile application
+│   └── lib/
+│       ├── core/               # Core components (networking, DI, theming, etc.)
+│       │   ├── constant/       # Application constants
+│       │   ├── di/             # Dependency injection setup
+│       │   ├── enum/           # Enumerations
+│       │   ├── extension/      # Dart language extensions
+│       │   ├── model/          # Core data models
+│       │   ├── networking/     # API clients and networking setup
+│       │   ├── route/          # Navigation and routing
+│       │   ├── services/       # Shared services (e.g., storage)
+│       │   ├── theming/        # Application theme and styling
+│       │   └── widget/         # Shared custom widgets
+│       ├── features/           # Feature-based modules
+│       │   ├── auth/           # Authentication feature (login, register)
+│       │   │   ├── data/       # Data sources, models, and repositories
+│       │   │   ├── logic/      # BLoC/Cubit for state management
+│       │   │   └── screen/     # UI screens and widgets
+│       │   └── home/           # Home/Notes feature
+│       │       ├── data/       # Data sources, models, and repositories
+│       │       ├── logic/      # BLoC/Cubit for state management
+│       │       └── screen/     # UI screens and widgets
+│       └── main.dart           # Application entry point
+├── client/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── (auth)/       # Auth pages (login, signup)
+│   │   │   └── (main)/       # Main application pages
+│   │   ├── components/     # Reusable React components
+│   │   ├── hooks/          # Custom React hooks
+│   │   └── services/       # API service calls
+│   └── package.json
+└── server/
+    ├── src/
+    │   ├── config/         # Database and environment config
+    │   ├── features/       # Core features (users, notes)
+    │   │   ├── notes/
+    │   │   └── user/
+    │   ├── middlewares/    # Custom Express middlewares
+    │   └── utils/          # Utility functions (auth, response)
+    └── package.json
+```

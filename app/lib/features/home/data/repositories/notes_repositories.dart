@@ -21,9 +21,45 @@ class NotesRepositories {
     }
   }
 
+  Future<ApiResult<BaseResponse<Note>>> createNote(Note note) async {
+    try {
+      final response = await _notesDataSource.createNote(note);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<BaseResponse<Note>>> getNote(String noteId) async {
+    try {
+      final response = await _notesDataSource.getNote(noteId);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
   Future<ApiResult<BaseResponse>> deleteNote(Note note) async {
     try {
       final response = await _notesDataSource.deleteNote(note.id!);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<BaseResponse>> deleteNoteById(String noteId) async {
+    try {
+      final response = await _notesDataSource.deleteNote(noteId);
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
+
+  Future<ApiResult<BaseResponse<Note>>> updateNote(Note note) async {
+    try {
+      final response = await _notesDataSource.updateNote(note.id!, note);
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ErrorHandler.handle(error));

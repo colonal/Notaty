@@ -71,4 +71,62 @@ class NotesCubit extends Cubit<NotesState> {
       },
     );
   }
+
+  Future<bool> deleteNoteById(String noteId) async {
+    final result = await _repository.deleteNoteById(noteId);
+    return result.when<bool>(
+      success: (_) {
+        emit(DeleteNoteByIdSuccess());
+        return true;
+      },
+      failure: (error) {
+        emit(DeleteNoteByIdFailure(message: error.apiErrorModel.message ?? ''));
+        return false;
+      },
+    );
+  }
+
+  void createNote(Note note) async {
+    emit(CreateNoteLoading());
+    final response = await _repository.createNote(note);
+    response.when(
+      success: (createdNote) {
+        emit(CreateNoteSuccess(note: createdNote.data!));
+      },
+      failure: (error) {
+        emit(CreateNoteFailure(message: error.apiErrorModel.message ?? ''));
+      },
+    );
+  }
+
+  void updateNote(Note note) async {
+    emit(UpdateNoteLoading(note: note));
+    final response = await _repository.updateNote(note);
+    response.when(
+      success: (updatedNote) {
+        emit(UpdateNoteSuccess(note: updatedNote.data!));
+      },
+      failure: (error) {
+        emit(
+          UpdateNoteFailure(
+            note: note,
+            message: error.apiErrorModel.message ?? '',
+          ),
+        );
+      },
+    );
+  }
+
+  void getNoteById(String noteId) async {
+    emit(GetNoteByIdLoading());
+    final response = await _repository.getNote(noteId);
+    response.when(
+      success: (note) async {
+        emit(GetNoteByIdSuccess(note: note.data!));
+      },
+      failure: (error) {
+        emit(GetNoteByIdFailure(message: error.apiErrorModel.message ?? ''));
+      },
+    );
+  }
 }

@@ -50,3 +50,57 @@ class DeleteNoteFailure extends NotesState {
     required this.note,
   });
 }
+
+class CreateNoteLoading extends NotesState {}
+
+class CreateNoteSuccess extends NotesState {
+  final Note note;
+
+  CreateNoteSuccess({required this.note});
+}
+
+class CreateNoteFailure extends NotesState {
+  final String message;
+
+  CreateNoteFailure({required this.message});
+}
+
+class UpdateNoteLoading extends NotesState {
+  final Note note;
+  UpdateNoteLoading({required this.note});
+}
+
+class UpdateNoteSuccess extends NotesState {
+  final Note note;
+
+  UpdateNoteSuccess({required this.note});
+}
+
+class UpdateNoteFailure extends NotesState {
+  final String message;
+  final Note note;
+
+  UpdateNoteFailure({required this.message, required this.note});
+}
+
+class GetNoteByIdLoading extends NotesState {}
+
+class GetNoteByIdSuccess extends NotesState {
+  final Note note;
+
+  GetNoteByIdSuccess({required this.note});
+}
+
+class GetNoteByIdFailure extends NotesState {
+  final String message;
+
+  GetNoteByIdFailure({required this.message});
+}
+
+class DeleteNoteByIdSuccess extends NotesState {}
+
+class DeleteNoteByIdFailure extends NotesState {
+  final String message;
+
+  DeleteNoteByIdFailure({required this.message});
+}

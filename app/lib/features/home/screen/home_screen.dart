@@ -1,5 +1,7 @@
 import 'package:Notaty/core/di/di_setup.dart';
 import 'package:Notaty/features/home/logic/notes_cubit.dart';
+import 'package:Notaty/features/home/screen/note_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +23,21 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             appBar: HomeScreenAppBar(),
             body: HomeScreenBlocConsumer(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  NoteScreen.routeName,
+                  arguments: null,
+                ).then((value) {
+                  if (value == true && context.mounted) {
+                    context.read<NotesCubit>().fetchNotes();
+                  }
+                });
+              },
+              tooltip: 'home.floating_action_button.tooltip'.tr(),
+              child: Icon(Icons.add),
+            ),
           );
         },
       ),

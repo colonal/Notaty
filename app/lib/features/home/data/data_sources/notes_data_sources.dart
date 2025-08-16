@@ -18,6 +18,18 @@ abstract class NotesDataSources {
   @GET(ApiConstants.notesEndpoint)
   Future<BaseResponse<List<Note>>> notes();
 
+  @POST(ApiConstants.notesEndpoint)
+  Future<BaseResponse<Note>> createNote(@Body() Note note);
+
+  @GET("${ApiConstants.notesEndpoint}/{noteId}")
+  Future<BaseResponse<Note>> getNote(@Path() String noteId);
+
   @DELETE("${ApiConstants.notesEndpoint}/{noteId}")
   Future<BaseResponse> deleteNote(@Path() String noteId);
+
+  @PUT("${ApiConstants.notesEndpoint}/{noteId}")
+  Future<BaseResponse<Note>> updateNote(
+    @Path() String noteId,
+    @Body() Note note,
+  );
 }

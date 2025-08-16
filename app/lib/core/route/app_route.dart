@@ -1,3 +1,4 @@
+import 'package:Notaty/features/home/screen/note_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -41,6 +42,10 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case RegisterScreen.routeName:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
+      case NoteScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => NoteScreen(noteId: settings.arguments as String?),
+        );
     }
 
     return null; // Placeholder for actual route generation logic

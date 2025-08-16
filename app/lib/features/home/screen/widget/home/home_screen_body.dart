@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widget/custom_snack_bar.dart';
 import '../../../data/model/notes/note.dart';
+import '../../note_screen.dart';
 import 'home_screen_body_note.dart';
 
 class HomeScreenBody extends StatefulWidget {
@@ -66,6 +67,19 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
             // If failed, Cubit will emit DeleteNoteFailure and restore in listener
             return isDeleted;
+          },
+          onEdit: () {
+            Navigator.pushNamed(
+              context,
+              NoteScreen.routeName,
+              arguments: note.id,
+            ).then((value) {
+              if (value == true) {
+                // If the note was edited successfully, refresh the notes
+                cubit.fetchNotes();
+              }
+            });
+            return Future.value(false);
           },
         );
       },

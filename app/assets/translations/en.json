@@ -27,6 +27,9 @@
             "delete": {
                 "success": "Note deleted successfully"
             }
+        },
+        "floating_action_button":{
+            "tooltip": "Create Note"
         }
     },
     "auth": {
@@ -89,6 +92,34 @@
             },
             "already_have_account": "Already have an account?",
             "signIn": "Sign in"
+        }
+    },
+    "note": {
+        "app_bar": {
+            "title_new": "Create Note",
+            "title_edit": "Update Note"
+        },
+        "body": {
+            "button_edit": "Edit Note",
+            "button_new": "New Note",
+            "success_create": "Note created successfully",
+            "success_update": "Note updated successfully",
+            "success_deleted": "Note updated successfully",
+            "go_back": "Go Back",
+            "form":{
+                "title": {
+                    "hint": "Enter note title",
+                    "validation": {
+                        "required": "Title is required"
+                    }
+                },
+                "content": {
+                    "hint": "Enter note body",
+                    "validation": {
+                        "required": "Body is required"
+                    }
+                }
+            }
         }
     }
 }
